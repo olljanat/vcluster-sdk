@@ -33,7 +33,7 @@ var defaultManager Manager = &manager{}
 
 type Options struct {
 	// ListenAddress is optional and the address where to contact
-	// the vcluster plugin server at. Defaults to localhost:10099
+	// the vcluster plugin server at. Defaults to 127.0.0.1:10099
 	ListenAddress string
 }
 
@@ -129,7 +129,7 @@ func (m *manager) InitWithOptions(name string, opts Options) (*synccontext.Regis
 
 	log := log.New("plugin")
 	m.name = name
-	m.address = "localhost:10099"
+	m.address = "127.0.0.1:10099"
 	if opts.ListenAddress != "" {
 		m.address = opts.ListenAddress
 	}
