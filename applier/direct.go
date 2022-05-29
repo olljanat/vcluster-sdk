@@ -7,11 +7,12 @@ Originally sourced from https://github.com/kubernetes-sigs/kubebuilder-declarati
 import (
 	"context"
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/spf13/cobra"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/tools/clientcmd"
-	"os"
-	"strings"
 
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
@@ -85,7 +86,7 @@ func newOptions(flags *apply.ApplyFlags, namespace string) (*apply.ApplyOptions,
 	}
 
 	// allow for a success message operation to be specified at print time
-	dryRunVerifier := resource.NewDryRunVerifier(dynamicClient, flags.Factory.OpenAPIGetter())
+	dryRunVerifier := resource.NewQueryParamVerifier(dynamicClient, flags.Factory.OpenAPIGetter(), resource.QueryParamDryRun)
 	toPrinter := func(operation string) (printers.ResourcePrinter, error) {
 		flags.PrintFlags.NamePrintFlags.Operation = operation
 		cmdutil.PrintFlagsWithDryRunStrategy(flags.PrintFlags, cmdutil.DryRunNone)
