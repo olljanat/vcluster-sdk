@@ -4,12 +4,13 @@ import (
 	context2 "context"
 	"crypto/sha256"
 	"encoding/hex"
-	"github.com/loft-sh/vcluster-sdk/clienthelper"
-	"github.com/loft-sh/vcluster-sdk/syncer/context"
-	"github.com/loft-sh/vcluster-sdk/translate"
 	"reflect"
 	"sort"
 	"strings"
+
+	"github.com/loft-sh/vcluster-sdk/clienthelper"
+	"github.com/loft-sh/vcluster-sdk/syncer/context"
+	"github.com/loft-sh/vcluster-sdk/translate"
 
 	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/api/meta"
@@ -290,6 +291,6 @@ func ResetObjectMetadata(obj metav1.Object) {
 	obj.SetDeletionGracePeriodSeconds(nil)
 	obj.SetOwnerReferences(nil)
 	obj.SetFinalizers(nil)
-	obj.SetClusterName("")
+	obj.SetZZZ_DeprecatedClusterName("")
 	obj.SetManagedFields(nil)
 }
